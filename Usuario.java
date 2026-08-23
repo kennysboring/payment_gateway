@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 
 public class Usuario {
-    enum TipoUsuario {
+    public enum TipoUsuario {
         COMUM,
         LOJISTA,
     }

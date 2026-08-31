@@ -1,8 +1,8 @@
-package src;
+package com.github.kenedy.paymentgateway;
 import java.math.BigDecimal;
 
-import src.exceptions.IllegalValueException;
-import src.exceptions.InsufficientBalanceException;
+import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
+import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,13 +16,19 @@ public class Main {
             Usuario.TipoUsuario.COMUM);
 
         try {
-            testUser.debitar(new BigDecimal("50.25"));
-            testUser.creditar(new BigDecimal("30"));
+            testUser.debitar(new BigDecimal("50.00"));
 
         } catch (IllegalValueException e) {
             System.out.println(e.getMessage());
-            
+
         } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            testUser.creditar(new BigDecimal("50.00"));
+
+        } catch (IllegalValueException e) {
             System.out.println(e.getMessage());
         }
 

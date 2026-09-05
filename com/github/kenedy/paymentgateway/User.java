@@ -4,25 +4,25 @@ import java.math.BigDecimal;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 
-public class Usuario {
-    public enum TipoUsuario {
-        COMUM,
-        LOJISTA,
+public class User {
+    public enum UserType {
+        COMMON,
+        MERCHANT,
     }
 
     private final long id;
-    private String nome;
+    private String name;
     private final String cpf;
     private String email;
-    private BigDecimal saldo;
-    private TipoUsuario tipoUsuario;
+    private BigDecimal balance;
+    private UserType userType;
 
-    public Usuario(long id, 
+    public User(long id, 
         String cpf,
-        String nome, 
+        String name, 
         String email, 
-        BigDecimal saldo, 
-        TipoUsuario tipoUsuario) 
+        BigDecimal balance, 
+        UserType userType) 
     {
         if (id <= 0) {
             throw new IllegalValueException("ERROR: id cannot be less than 0(zero)");
@@ -32,7 +32,7 @@ public class Usuario {
             throw new IllegalValueException("ERROR: cpf is null");
         }
 
-        if (nome == null || nome.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalValueException("ERROR: name cannot be blank");
         }
 
@@ -40,48 +40,48 @@ public class Usuario {
             throw new IllegalValueException("ERROR: invalid email");
         }
 
-        if (saldo == null || saldo.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalValueException("ERROR: saldo cannot be less than 0(zero)");
+        if (balance == null || balance.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalValueException("ERROR: balance cannot be less than 0(zero)");
         }
 
-        if (tipoUsuario == null) {
+        if (userType == null) {
             throw new IllegalValueException("ERROR: select a user valid type");
         }
         
         this.id = id;
         this.cpf = cpf;
-        this.nome = nome;
+        this.name = name;
         this.email = email;
-        this.saldo = saldo;
-        this.tipoUsuario = tipoUsuario;
+        this.balance = balance;
+        this.userType = userType;
         
     }
 
-    public void debitar(BigDecimal valor) {
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0){
+    public void debit(BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalValueException("ERROR to debit: value is not accepted");
         }
         
-        if (this.saldo.compareTo(valor) < 0) {
-            throw new InsufficientBalanceException(valor, this.saldo);
+        if (this.balance.compareTo(amount) < 0) {
+            throw new InsufficientBalanceException(amount, this.balance);
         }
 
-        this.saldo = this.saldo.subtract(valor);
+        this.balance = this.balance.subtract(amount);
     }
 
-    public void creditar(BigDecimal valor) {
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0){
+    public void credit(BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalValueException("ERROR to credit: value is not accepted");
         }
         
-        this.saldo = this.saldo.add(valor);
+        this.balance = this.balance.add(amount);
     }
 
     //all getters
     public long getId(){ return id; }
     public String getCpf(){ return cpf; }
-    public String getNome(){ return nome; }
+    public String getName(){ return name; }
     public String getEmail(){ return email; }
-    public BigDecimal getSaldo(){ return saldo; }
-    public TipoUsuario getTipoUsuario(){ return tipoUsuario; }
+    public BigDecimal getBalance(){ return balance; }
+    public UserType getUserType(){ return userType; }
 }

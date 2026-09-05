@@ -7,16 +7,16 @@ import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 public class Main {
     public static void main(String[] args) {
 
-        Usuario testUser = new Usuario(
+        User testUser = new User(
             1, 
             "000.000.000-01",
             "person", 
             "person@email.com", 
             new BigDecimal("100.25"), 
-            Usuario.TipoUsuario.COMUM);
+            User.UserType.COMMON);
 
         try {
-            testUser.debitar(new BigDecimal("50.00"));
+            testUser.debit(new BigDecimal("50.00"));
 
         } catch (IllegalValueException e) {
             System.out.println(e.getMessage());
@@ -26,11 +26,10 @@ public class Main {
         }
 
         try {
-            testUser.creditar(new BigDecimal("50.00"));
+            testUser.credit(new BigDecimal("50.00"));
 
         } catch (IllegalValueException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

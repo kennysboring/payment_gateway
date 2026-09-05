@@ -1,24 +1,24 @@
 package com.github.kenedy.paymentgateway.services;
 
-import com.github.kenedy.paymentgateway.Transferencia;
-import com.github.kenedy.paymentgateway.Usuario.TipoUsuario;
+import com.github.kenedy.paymentgateway.Transfer;
+import com.github.kenedy.paymentgateway.User.UserType;
 import com.github.kenedy.paymentgateway.exceptions.DomainException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
 
-public class TransferenciaService {
-    public void executar(Transferencia t) {
+public class TransferService {
+    public void execute(Transfer t) {
         try{
-            if (t.getPagador().getTipoUsuario() == TipoUsuario.LOJISTA) {
+            if (t.getPayer().getUserType() == UserType.MERCHANT) {
                 throw new MerchantCannotPayException();
             }
             
-            if (t.getPagador().getId() == t.getRecebedor().getId()) {
+            if (t.getPayer().getId() == t.getPayee().getId()) {
                 throw new SelfTransferException();
             }
 
-            t.getPagador().debitar(t.getValor());
-            t.getRecebedor().creditar(t.getValor());
+            t.getPayer().debit(t.getAmount());
+            t.getPayee().credit(t.getAmount());
             t.setStatusAsCompleted();
 
         } catch (DomainException e) {

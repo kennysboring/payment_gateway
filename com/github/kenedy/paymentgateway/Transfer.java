@@ -1,6 +1,7 @@
 package com.github.kenedy.paymentgateway;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 
@@ -11,6 +12,7 @@ public class Transfer {
         FAILED,
     }
 
+    private final UUID id;
     private User payer; 
     private User payee;
     private BigDecimal amount; 
@@ -25,13 +27,14 @@ public class Transfer {
             throw new IllegalValueException("ERROR: value is not accepted");
         }
 
+        this.id = UUID.randomUUID();
         this.payer = payer;
         this.payee = payee;
         this.amount = amount;
         this.status = TransactionStatus.PENDING;
         }
     
-
+    public UUID getId() { return id; }
     public User getPayer() { return payer; }
     public User getPayee() { return payee; }
     public BigDecimal getAmount() { return amount; }

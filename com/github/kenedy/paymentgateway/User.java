@@ -1,6 +1,8 @@
 package com.github.kenedy.paymentgateway;
 
 import java.math.BigDecimal;
+import java.util.UUID;
+
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 
@@ -17,7 +19,7 @@ public class User {
     private BigDecimal balance;
     private UserType userType;
 
-    public User(long id, 
+    public User( long id,
         String cpf,
         String name, 
         String email, 

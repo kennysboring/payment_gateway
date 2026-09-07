@@ -3,8 +3,6 @@ package com.github.kenedy.paymentgateway;
 import java.math.BigDecimal;
 
 import com.github.kenedy.paymentgateway.exceptions.DomainException;
-import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
-import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 import com.github.kenedy.paymentgateway.repositories.InMemoryTransactionRepository;
 import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 import com.github.kenedy.paymentgateway.services.TransferService;

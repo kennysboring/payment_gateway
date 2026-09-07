@@ -1,7 +1,6 @@
 package com.github.kenedy.paymentgateway;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;

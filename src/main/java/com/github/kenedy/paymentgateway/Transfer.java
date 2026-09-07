@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 
 public class Transfer {
-    private enum TransactionStatus {
+    public enum TransactionStatus {
         PENDING,
         COMPLETED,
         FAILED,
@@ -38,6 +38,7 @@ public class Transfer {
     public User getPayer() { return payer; }
     public User getPayee() { return payee; }
     public BigDecimal getAmount() { return amount; }
+    public TransactionStatus getStatus() { return status; }
 
     public void setStatusAsCompleted() { this.status = TransactionStatus.COMPLETED; }
     public void setStatusAsFailed() { this.status = TransactionStatus.FAILED; }

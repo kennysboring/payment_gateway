@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.kenedy</groupId>
+    <groupId>com.github.kennysboring</groupId>
     <artifactId>paymentgateway</artifactId>
     <version>1.0.0</version>
 

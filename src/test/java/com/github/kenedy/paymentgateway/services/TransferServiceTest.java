@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.github.kenedy.paymentgateway.Transfer;
 import com.github.kenedy.paymentgateway.User;
+import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
 import com.github.kenedy.paymentgateway.repositories.InMemoryTransactionRepository;
@@ -41,6 +42,13 @@ public class TransferServiceTest {
         Assertions.assertTrue(new BigDecimal("200.99").compareTo(payee.getBalance()) == 0); 
         Assertions.assertTrue(repository.findById(transfer.getId()).isPresent()); 
 
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTransferIsNull() {
+        Assertions.assertThrows(IllegalValueException.class, () -> {
+            service.execute(null);
+        });
     }
 
     @Test

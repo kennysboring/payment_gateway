@@ -13,9 +13,9 @@ public class Transfer {
     }
 
     private final UUID id;
-    private User payer; 
-    private User payee;
-    private BigDecimal amount; 
+    private final User payer; 
+    private final User payee;
+    private final BigDecimal amount; 
     private TransactionStatus status;
 
     public Transfer(User payer, BigDecimal amount, User payee) {

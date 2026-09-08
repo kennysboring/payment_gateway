@@ -5,6 +5,7 @@ import com.github.kenedy.paymentgateway.User.UserType;
 import com.github.kenedy.paymentgateway.exceptions.DomainException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
+import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 
 public class TransferService {
@@ -15,6 +16,10 @@ public class TransferService {
     }
 
     public void execute(Transfer t) {
+        if (t == null) {
+            throw new IllegalValueException("ERROR: transfer cannot be null");
+        }
+
         try{
             if (t.getPayer().getUserType() == UserType.MERCHANT) {
                 throw new MerchantCannotPayException();

@@ -1,7 +1,7 @@
 package com.github.kenedy.paymentgateway.services;
 
-import com.github.kenedy.paymentgateway.Transfer;
-import com.github.kenedy.paymentgateway.User.UserType;
+import com.github.kenedy.paymentgateway.domain.Transfer;
+import com.github.kenedy.paymentgateway.domain.User.UserType;
 import com.github.kenedy.paymentgateway.exceptions.DomainException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;

@@ -1,4 +1,4 @@
-package com.github.kenedy.paymentgateway;
+package com.github.kenedy.paymentgateway.domain;
 
 import java.math.BigDecimal;
 import java.util.UUID;

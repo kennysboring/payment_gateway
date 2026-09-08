@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.github.kenedy.paymentgateway.Transfer;
-import com.github.kenedy.paymentgateway.User;
+import com.github.kenedy.paymentgateway.domain.Transfer;
+import com.github.kenedy.paymentgateway.domain.User;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;

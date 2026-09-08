@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.github.kenedy.paymentgateway.User.UserType;
+import com.github.kenedy.paymentgateway.domain.User;
+import com.github.kenedy.paymentgateway.domain.User.UserType;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 

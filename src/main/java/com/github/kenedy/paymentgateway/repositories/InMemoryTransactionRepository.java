@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.github.kenedy.paymentgateway.Transfer;
+import com.github.kenedy.paymentgateway.domain.Transfer;
 
 public class InMemoryTransactionRepository implements TransactionRepository{
 

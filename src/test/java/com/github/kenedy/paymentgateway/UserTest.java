@@ -28,6 +28,31 @@ public class UserTest {
 
     }
 
+    @Test
+    void shouldSetBalanceToZeroWhenDebitingExactBalanceAmount() {
+        User user = new User(1, 
+            "000.000.000-01", 
+            "person", 
+            "person@email.com", 
+            new BigDecimal("100.0"), 
+            UserType.COMMON);
+
+        user.debit(new BigDecimal("100"));
+        Assertions.assertTrue(BigDecimal.ZERO.compareTo(user.getBalance()) == 0);
+    }
+
+    @Test
+    void shouldCreateUserWithZeroBalance() {
+        User user = new User(1, 
+            "000.000.000-01", 
+            "person", 
+            "person@email.com", 
+            new BigDecimal("0"), 
+            UserType.COMMON);
+
+        Assertions.assertTrue(BigDecimal.ZERO.compareTo(user.getBalance()) == 0);
+    }
+
     @Test 
     void shouldThrowExceptionWhenIdIsZeroOrNegative() {
         Assertions.assertThrows(IllegalValueException.class, () -> {
@@ -161,7 +186,7 @@ public class UserTest {
 
         user.credit(new BigDecimal("0.01"));
 
-        Assertions.assertTrue(new BigDecimal("101").compareTo(user.getBalance()) == 0); //.compareTo() return '0' when comparation is false
+        Assertions.assertTrue(new BigDecimal("101").compareTo(user.getBalance()) == 0); //.compareTo() return '0' when comparation is true
     }
 
     @Test 

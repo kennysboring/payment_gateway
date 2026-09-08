@@ -1,12 +1,14 @@
 package com.github.kenedy.paymentgateway.services;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.github.kenedy.paymentgateway.Transfer;
 import com.github.kenedy.paymentgateway.User;
+import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
@@ -90,5 +92,30 @@ public class TransferServiceTest {
         Assertions.assertThrows(SelfTransferException.class, () -> {
             service.execute(transfer);
         });
+    }
+
+    @Test
+    void shouldMarkAsFailedWhenPayerHasInsufficientBalance() {
+        User payer = new User(1, 
+            "000.000.000-01", 
+            "payer", 
+            "person1@email.com", 
+            new BigDecimal("10"), 
+            User.UserType.COMMON);
+
+        User payee = new User(2, 
+            "000.000.000-02", 
+            "payee", 
+            "person2@email.com", 
+            new BigDecimal("100.99"), 
+            User.UserType.COMMON);
+
+        Transfer transfer = new Transfer(payer, new BigDecimal("100"), payee);
+
+        Assertions.assertThrows(InsufficientBalanceException.class, () -> {
+            service.execute(transfer);
+        });
+        Assertions.assertEquals(Transfer.TransactionStatus.FAILED, transfer.getStatus());
+        Assertions.assertTrue(repository.findById(transfer.getId()).isPresent());
     }
 }   

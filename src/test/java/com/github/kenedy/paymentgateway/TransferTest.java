@@ -58,4 +58,25 @@ public class TransferTest {
             new Transfer(payer, new BigDecimal("-100"), payee);   
         });
     }
+
+    @Test 
+    void shouldThrowExceptionWhenAmountIsZeroToTransfer() {
+        User payer = new User(1, 
+            "000.000.000-01", 
+            "payee", 
+            "person1@email.com", 
+            new BigDecimal("100.99"), 
+            UserType.COMMON);
+
+        User payee = new User(2, 
+            "000.000.000-02", 
+            "payer", 
+            "person2@email.com", 
+            new BigDecimal("100.99"), 
+            UserType.COMMON);
+
+        Assertions.assertThrows(IllegalValueException.class, () -> {
+            new Transfer(payer, new BigDecimal("0"), payee);   
+        });
+    }
 }

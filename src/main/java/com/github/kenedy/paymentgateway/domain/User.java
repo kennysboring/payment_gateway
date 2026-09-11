@@ -1,6 +1,7 @@
 package com.github.kenedy.paymentgateway.domain;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
@@ -11,23 +12,19 @@ public class User {
         MERCHANT,
     }
 
-    private final long id;
+    private final UUID id;
     private String name;
     private final String cpf;
     private String email;
     private BigDecimal balance;
     private UserType userType;
 
-    public User( long id,
-        String cpf,
+    public User( String cpf,
         String name, 
         String email, 
         BigDecimal balance, 
         UserType userType) 
     {
-        if (id <= 0) {
-            throw new IllegalValueException("ERROR: id cannot be less than 0(zero)");
-        }
 
         if (cpf == null || cpf.isBlank()) {
             throw new IllegalValueException("ERROR: cpf is null");
@@ -49,7 +46,7 @@ public class User {
             throw new IllegalValueException("ERROR: select a user valid type");
         }
         
-        this.id = id;
+        id = UUID.randomUUID();
         this.cpf = cpf;
         this.name = name;
         this.email = email;
@@ -79,7 +76,7 @@ public class User {
     }
 
     //all getters
-    public long getId(){ return id; }
+    public UUID getId(){ return id; }
     public String getCpf(){ return cpf; }
     public String getName(){ return name; }
     public String getEmail(){ return email; }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import com.github.kenedy.paymentgateway.domain.User;
 @Repository 
 public class InMemoryUserRepository implements UserRepository{
 
-    private final Map<Long, User> repository = new HashMap<>(); 
+    private final Map<UUID, User> repository = new HashMap<>(); 
 
     @Override
     public void save(User user) {
@@ -21,7 +22,7 @@ public class InMemoryUserRepository implements UserRepository{
     }
 
     @Override
-    public Optional<User> findById(long id) {
+    public Optional<User> findById(UUID id) {
         return Optional.ofNullable(repository.get(id));
     }
 

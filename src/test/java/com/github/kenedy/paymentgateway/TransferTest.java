@@ -14,8 +14,7 @@ public class TransferTest {
 
     @Test 
     void shouldThrowExceptionWhenPayerIsNull() {
-        User payee = new User(1, 
-            "000.000.000-01", 
+        User payee = new User("000.000.000-01", 
             "payee", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -28,8 +27,7 @@ public class TransferTest {
 
     @Test 
     void shouldThrowExceptionWhenPayeeIsNull() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payee", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -42,15 +40,13 @@ public class TransferTest {
     
     @Test 
     void shouldThrowExceptionWhenAmountIsNegativeToTransfer() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payee", 
             "person1@email.com", 
             new BigDecimal("100.99"), 
             UserType.COMMON);
 
-        User payee = new User(2, 
-            "000.000.000-02", 
+        User payee = new User("000.000.000-02", 
             "payer", 
             "person2@email.com", 
             new BigDecimal("100.99"), 
@@ -63,15 +59,13 @@ public class TransferTest {
 
     @Test 
     void shouldThrowExceptionWhenAmountIsZeroToTransfer() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payee", 
             "person1@email.com", 
             new BigDecimal("100.99"), 
             UserType.COMMON);
 
-        User payee = new User(2, 
-            "000.000.000-02", 
+        User payee = new User("000.000.000-02", 
             "payer", 
             "person2@email.com", 
             new BigDecimal("100.99"), 

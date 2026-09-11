@@ -14,14 +14,12 @@ public class UserTest {
     
     @Test
     void shouldCreateValidUser() {
-        User user = new User(1, 
-            "000.000.000-01", 
+        User user = new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("100.99"), 
             UserType.COMMON);
 
-        Assertions.assertEquals(1, user.getId());
         Assertions.assertEquals("000.000.000-01", user.getCpf());
         Assertions.assertEquals("person@email.com", user.getEmail());
         Assertions.assertEquals(new BigDecimal("100.99"), user.getBalance());
@@ -31,8 +29,7 @@ public class UserTest {
 
     @Test
     void shouldSetBalanceToZeroWhenDebitingExactBalanceAmount() {
-        User user = new User(1, 
-            "000.000.000-01", 
+        User user = new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("100.0"), 
@@ -44,8 +41,7 @@ public class UserTest {
 
     @Test
     void shouldCreateUserWithZeroBalance() {
-        User user = new User(1, 
-            "000.000.000-01", 
+        User user = new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("0"), 
@@ -55,30 +51,9 @@ public class UserTest {
     }
 
     @Test 
-    void shouldThrowExceptionWhenIdIsZeroOrNegative() {
-        Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(0,  //Zero
-            "000.000.000-01", 
-            "person", 
-            "person@email.com", 
-            new BigDecimal("100.99"), 
-            UserType.COMMON);
-        });
-        Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(-1,  //Negative
-            "000.000.000-01", 
-            "person", 
-            "person@email.com", 
-            new BigDecimal("100.99"), 
-            UserType.COMMON);
-        });
-    }
-
-    @Test 
     void shouldThrowExceptionWhenCpfIsBlank(){
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(1, 
-            "", //Blank
+            new User("", //Blank
             "person", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -89,8 +64,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenNameIsBlank(){
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(1, 
-            "000.000.000-01", 
+            new User("000.000.000-01", 
             "",  //Blank
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -101,8 +75,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenEmailIsInvalid(){
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(1, 
-            "000.000.000-01", 
+            new User("000.000.000-01", 
             "person",
             "email",  //Invalid
             new BigDecimal("100.99"), 
@@ -113,8 +86,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenBalanceIsNegative() {
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(1,  
-            "000.000.000-01", 
+            new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("-1.0"), //Negative
@@ -125,8 +97,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenUserTypeIsNull() {
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            new User(1,  
-            "000.000.000-01", 
+            new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -136,8 +107,7 @@ public class UserTest {
 
     @Test
     void shouldCorrectDebit() {
-        User user = new User(1, 
-            "000.000.000-01", 
+        User user = new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -151,8 +121,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenAmountIsNegativeToDebit() {
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            User user = new User(1, 
-                "000.000.000-01", 
+            User user = new User("000.000.000-01", 
                 "person", 
                 "person@email.com", 
                 new BigDecimal("100.99"), 
@@ -165,8 +134,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenUserHaveNoBalanceEnoughToDebit() {
         Assertions.assertThrows(InsufficientBalanceException.class, () -> {
-            User user = new User(1, 
-                "000.000.000-01", 
+            User user = new User("000.000.000-01", 
                 "person", 
                 "person@email.com", 
                 new BigDecimal("100"), 
@@ -178,8 +146,7 @@ public class UserTest {
 
     @Test
     void shouldCorrectCredit() {
-        User user = new User(1, 
-            "000.000.000-01", 
+        User user = new User("000.000.000-01", 
             "person", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -193,8 +160,7 @@ public class UserTest {
     @Test 
     void shouldThrowExceptionWhenAmountIsNegativeToCredit() {
         Assertions.assertThrows(IllegalValueException.class, () -> {
-            User user = new User(1, 
-                "000.000.000-01", 
+            User user = new User("000.000.000-01", 
                 "person", 
                 "person@email.com", 
                 new BigDecimal("100.99"), 

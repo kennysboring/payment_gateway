@@ -25,7 +25,7 @@ public class TransferService {
                 throw new MerchantCannotPayException();
             }
             
-            if (t.getPayer().getId() == t.getPayee().getId()) {
+            if (t.getPayer().getId().equals(t.getPayee().getId())) {
                 throw new SelfTransferException();
             }
 

@@ -1,7 +1,6 @@
 package com.github.kenedy.paymentgateway.services;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,15 +21,13 @@ public class TransferServiceTest {
 
     @Test 
     void shouldExecuteCorrectly() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payer", 
             "person@email.com", 
             new BigDecimal("100.99"), 
             User.UserType.COMMON);
 
-        User payee = new User(2, 
-            "000.000.000-01", 
+        User payee = new User("000.000.000-02", 
             "payee", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -55,15 +52,13 @@ public class TransferServiceTest {
 
     @Test
     void shouldThrowExceptionWhenMerchantTryingTransfer() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payer", 
             "person@email.com", 
             new BigDecimal("100.99"), 
             User.UserType.MERCHANT);
 
-        User payee = new User(2, 
-            "000.000.000-01", 
+        User payee = new User("000.000.000-02", 
             "payee", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -80,8 +75,7 @@ public class TransferServiceTest {
 
     @Test
     void shouldThrowExceptionWhenDoingSelfTransaction() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payer", 
             "person@email.com", 
             new BigDecimal("100.99"), 
@@ -96,15 +90,13 @@ public class TransferServiceTest {
 
     @Test
     void shouldMarkAsFailedWhenPayerHasInsufficientBalance() {
-        User payer = new User(1, 
-            "000.000.000-01", 
+        User payer = new User("000.000.000-01", 
             "payer", 
             "person1@email.com", 
             new BigDecimal("10"), 
             User.UserType.COMMON);
 
-        User payee = new User(2, 
-            "000.000.000-02", 
+        User payee = new User("000.000.000-02", 
             "payee", 
             "person2@email.com", 
             new BigDecimal("100.99"), 

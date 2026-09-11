@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Repository;
+
 import com.github.kenedy.paymentgateway.domain.Transfer;
 
+@Repository 
 public class InMemoryTransactionRepository implements TransactionRepository{
 
     private final Map<UUID, Transfer> transfers = new HashMap<>();

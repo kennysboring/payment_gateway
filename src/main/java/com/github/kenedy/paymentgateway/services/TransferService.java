@@ -1,5 +1,7 @@
 package com.github.kenedy.paymentgateway.services;
 
+import org.springframework.stereotype.Service;
+
 import com.github.kenedy.paymentgateway.domain.Transfer;
 import com.github.kenedy.paymentgateway.domain.User.UserType;
 import com.github.kenedy.paymentgateway.exceptions.DomainException;
@@ -8,6 +10,7 @@ import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 
+@Service 
 public class TransferService {
     private final TransactionRepository repository;
 

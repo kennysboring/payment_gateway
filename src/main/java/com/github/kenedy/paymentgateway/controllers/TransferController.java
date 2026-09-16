@@ -18,14 +18,14 @@ import com.github.kenedy.paymentgateway.services.TransferService;
 @RestController 
 @RequestMapping("/transfers")
 public class TransferController {
-    private final TransactionRepository transferRepository;
+    private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
     private final TransferService service;
 
-    public TransferController(UserRepository userRepository, TransferService service, TransactionRepository transferRepository) {
+    public TransferController(UserRepository userRepository, TransferService service, TransactionRepository transactionRepository) {
         this.userRepository = userRepository;
         this.service = service;
-        this.transferRepository = transferRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @PostMapping 
@@ -41,7 +41,7 @@ public class TransferController {
 
     @GetMapping
     public List<Transfer> findAll() {
-        return transferRepository.findAll();
+        return transactionRepository.findAll();
     }
     
 }

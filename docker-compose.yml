@@ -1,15 +1,38 @@
 services:
   postgres:
     image: postgres:16
-    container_name: payment_gateway
+    container_name: payment_gateway_db
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      -"5432:5432"
+      - "5432:5432"
     volumes:
-      -pgdata: /var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+      build: . # compile from Dockerfile
+      container_name: payment_gateway_app
+      env_file:
+        - .env
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+        SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+        SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+        SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      ports:
+        - "8080:8080"
+      depends_on:
+          postgres:
+            condition: service_healthy
 
 volumes:
   pgdata:

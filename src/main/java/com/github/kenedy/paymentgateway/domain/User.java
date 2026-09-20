@@ -12,12 +12,14 @@ public class User {
         MERCHANT,
     }
 
-    private final UUID id;
+    private UUID id;
     private String name;
-    private final String cpf;
+    private String cpf;
     private String email;
     private BigDecimal balance;
     private UserType userType;
+
+    protected User() {}
 
     public User( String cpf,
         String name, 

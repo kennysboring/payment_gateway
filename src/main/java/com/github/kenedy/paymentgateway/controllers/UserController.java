@@ -1,7 +1,6 @@
 package com.github.kenedy.paymentgateway.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.kenedy.paymentgateway.domain.User;
 import com.github.kenedy.paymentgateway.dto.CreateUserRequest;
+import com.github.kenedy.paymentgateway.dto.UserResponse;
 import com.github.kenedy.paymentgateway.repositories.UserRepository;
 
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody CreateUserRequest request) {
+    public UserResponse create(@Valid @RequestBody CreateUserRequest request) {
         User user = new User(
             request.getCpf(),
             request.getName(),
@@ -37,22 +37,20 @@ public class UserController {
             request.getUserType());
 
         repository.save(user);
-        return user;
+        return new UserResponse(user);
     } 
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable UUID id) {
-        Optional<User> user = repository.findById(id);
-
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserResponse> findById(@PathVariable UUID id) {
+        return repository.findById(id)
+            .map(user -> ResponseEntity.ok(new UserResponse(user)))
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<UserResponse> findAll() {
+        return repository.findAll().stream()
+            .map(UserResponse::new)
+            .toList();
     }
 }

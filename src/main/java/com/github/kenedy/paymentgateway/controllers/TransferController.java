@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.kenedy.paymentgateway.domain.Transfer;
+import com.github.kenedy.paymentgateway.domain.User;
 import com.github.kenedy.paymentgateway.dto.CreateTransferRequest;
+import com.github.kenedy.paymentgateway.dto.TransferResponse;
 import com.github.kenedy.paymentgateway.exceptions.UserNotFoundException;
 import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 import com.github.kenedy.paymentgateway.repositories.UserRepository;
@@ -30,20 +32,23 @@ public class TransferController {
         this.transactionRepository = transactionRepository;
     }
 
-    @PostMapping 
-    public Transfer create(@Valid @RequestBody CreateTransferRequest request) {
-        Transfer transfer = new Transfer(
-            userRepository.findById(request.getPayerId()).orElseThrow(() -> new UserNotFoundException("ERROR: payer not found")),
-            request.getAmount(),
-            userRepository.findById(request.getPayeeId()).orElseThrow(() -> new UserNotFoundException("ERROR: payee not found")));
+    @PostMapping
+    public TransferResponse create(@Valid @RequestBody CreateTransferRequest request) {
+        User payer = userRepository.findById(request.getPayerId())
+            .orElseThrow(() -> new UserNotFoundException("ERROR: payer not found"));
+        User payee = userRepository.findById(request.getPayeeId())
+            .orElseThrow(() -> new UserNotFoundException("ERROR: payee not found"));
 
+        Transfer transfer = new Transfer(payer, request.getAmount(), payee);
         service.execute(transfer);
-        return transfer;
+        return new TransferResponse(transfer);
     }
 
     @GetMapping
-    public List<Transfer> findAll() {
-        return transactionRepository.findAll();
+    public List<TransferResponse> findAll() {
+        return transactionRepository.findAll().stream()
+            .map(TransferResponse::new)
+            .toList();
     }
     
 }

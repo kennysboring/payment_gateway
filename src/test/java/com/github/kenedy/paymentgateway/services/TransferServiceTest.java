@@ -1,5 +1,8 @@
 package com.github.kenedy.paymentgateway.services;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Assertions;
@@ -11,12 +14,11 @@ import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.MerchantCannotPayException;
 import com.github.kenedy.paymentgateway.exceptions.SelfTransferException;
-import com.github.kenedy.paymentgateway.repositories.InMemoryTransactionRepository;
 import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 
 
 public class TransferServiceTest {
-    TransactionRepository repository = new InMemoryTransactionRepository();
+    TransactionRepository repository = mock(TransactionRepository.class);
     TransferService service = new TransferService(repository);
 
     @Test 
@@ -39,7 +41,7 @@ public class TransferServiceTest {
         Assertions.assertEquals(Transfer.TransactionStatus.COMPLETED, transfer.getStatus());
         Assertions.assertTrue(new BigDecimal("0.99").compareTo(payer.getBalance()) == 0); 
         Assertions.assertTrue(new BigDecimal("200.99").compareTo(payee.getBalance()) == 0); 
-        Assertions.assertTrue(repository.findById(transfer.getId()).isPresent()); 
+        verify(repository).save(transfer);
 
     }
 
@@ -108,6 +110,6 @@ public class TransferServiceTest {
             service.execute(transfer);
         });
         Assertions.assertEquals(Transfer.TransactionStatus.FAILED, transfer.getStatus());
-        Assertions.assertTrue(repository.findById(transfer.getId()).isPresent());
+        verify(repository).save(transfer);
     }
 }   

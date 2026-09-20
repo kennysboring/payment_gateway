@@ -5,6 +5,14 @@ import java.util.UUID;
 
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity 
 public class Transfer {
     public enum TransactionStatus {
         PENDING,
@@ -12,11 +20,22 @@ public class Transfer {
         FAILED,
     }
 
-    private final UUID id;
-    private final User payer; 
-    private final User payee;
-    private final BigDecimal amount; 
+    @Id   
+    private UUID id;
+
+    @ManyToOne 
+    @JoinColumn(name = "payer_id", nullable = false)
+    private User payer; 
+
+    @ManyToOne 
+    @JoinColumn(name = "payee_id", nullable = false)
+    private User payee;
+    private BigDecimal amount; 
+    
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
+
+    protected Transfer() {}
 
     public Transfer(User payer, BigDecimal amount, User payee) {
         if (payer == null || payee == null) {

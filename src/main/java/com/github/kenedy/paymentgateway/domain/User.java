@@ -6,17 +6,29 @@ import java.util.UUID;
 import com.github.kenedy.paymentgateway.exceptions.IllegalValueException;
 import com.github.kenedy.paymentgateway.exceptions.InsufficientBalanceException;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "users") 
 public class User {
     public enum UserType {
         COMMON,
         MERCHANT,
     }
 
+    @Id
     private UUID id;
+
     private String name;
     private String cpf;
     private String email;
     private BigDecimal balance;
+
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     protected User() {}
@@ -48,7 +60,7 @@ public class User {
             throw new IllegalValueException("ERROR: select a user valid type");
         }
         
-        id = UUID.randomUUID();
+        this.id = UUID.randomUUID();
         this.cpf = cpf;
         this.name = name;
         this.email = email;

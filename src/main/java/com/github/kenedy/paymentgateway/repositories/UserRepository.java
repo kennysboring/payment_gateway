@@ -1,13 +1,9 @@
 package com.github.kenedy.paymentgateway.repositories;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.github.kenedy.paymentgateway.domain.User;
 
-public interface UserRepository {
-    void save(User user);
-    Optional<User> findById(UUID id);
-    List<User> findAll();
-}
+public interface UserRepository extends JpaRepository<User, UUID> {}

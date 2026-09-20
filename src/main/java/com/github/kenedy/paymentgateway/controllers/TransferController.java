@@ -15,6 +15,8 @@ import com.github.kenedy.paymentgateway.repositories.TransactionRepository;
 import com.github.kenedy.paymentgateway.repositories.UserRepository;
 import com.github.kenedy.paymentgateway.services.TransferService;
 
+import jakarta.validation.Valid;
+
 @RestController 
 @RequestMapping("/transfers")
 public class TransferController {
@@ -29,7 +31,7 @@ public class TransferController {
     }
 
     @PostMapping 
-    public Transfer create(@RequestBody CreateTransferRequest request) {
+    public Transfer create(@Valid @RequestBody CreateTransferRequest request) {
         Transfer transfer = new Transfer(
             userRepository.findById(request.getPayerId()).orElseThrow(() -> new UserNotFoundException("ERROR: payer not found")),
             request.getAmount(),

@@ -3,9 +3,19 @@ package com.github.kenedy.paymentgateway.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class CreateTransferRequest {
+
+    @NotNull
     private UUID payeeId;
+
+    @NotNull
     private UUID payerId;
+    
+    @NotNull
+    @Positive
     private BigDecimal amount;
 
     //all getters

@@ -4,11 +4,28 @@ import java.math.BigDecimal;
 
 import com.github.kenedy.paymentgateway.domain.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class CreateUserRequest {
+    
+    @NotBlank
     private String cpf;
+
+    @NotBlank
     private String name;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotNull
+    @Positive
     private BigDecimal balance;
+
+    @NotNull
     private User.UserType userType;
 
     //getters

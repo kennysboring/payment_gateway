@@ -16,6 +16,8 @@ import com.github.kenedy.paymentgateway.domain.User;
 import com.github.kenedy.paymentgateway.dto.CreateUserRequest;
 import com.github.kenedy.paymentgateway.repositories.UserRepository;
 
+import jakarta.validation.Valid;
+
 @RestController 
 @RequestMapping("/users")
 public class UserController {
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestBody CreateUserRequest request) {
+    public User create(@Valid @RequestBody CreateUserRequest request) {
         User user = new User(
             request.getCpf(),
             request.getName(),
